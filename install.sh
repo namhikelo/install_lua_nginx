@@ -1,6 +1,6 @@
 # ROOT
 if [ "$EUID" -ne 0 ]; then
-    echo "Cảnh báo: Script này cần được chạy bởi user root."
+    echo "RUN AS ROOT."
     exit 1
 fi
 
