@@ -119,6 +119,7 @@ echo "$nginx_service_content" | sudo tee "$systemd_service_file"
 # Add module
 sed -i '1i\load_module /opt/nginx/modules/ngx_http_lua_module.so;' /opt/nginx/nginx.conf
 sed -i '1i\load_module /opt/nginx/modules/ndk_http_module.so;' /opt/nginx/nginx.conf
+sed -i '10i\pid /run/nginx.pid;' /opt/nginx/nginx.conf
 sed -i '30i\lua_package_path "/opt/nginx/lib/lua/?.lua;;/opt/nginx/lua-nginx-script/?.lua;;";' /opt/nginx/nginx.conf
 
 # Config services
