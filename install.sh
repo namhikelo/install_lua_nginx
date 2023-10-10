@@ -1,12 +1,11 @@
 # ROOT
 if [ "$EUID" -ne 0 ]; then
-    echo "RUN AS ROOT."
+    echo "RUN AS ROOT ^^!"
     exit 1
 fi
 
 # Update
 sudo apt update
-sudo apt full-upgrade -y
 
 # Pakage requirement
 sudo apt install -y g++ build-essential make net-tools git curl wget openssl gcc libssl-dev libpcre3 libpcre3-dev zlib1g-dev
@@ -19,15 +18,16 @@ PATH_DOWNLOAD='/opt/nginx-build'
 NGX_DEVEL_KIT_PATH=$PATH_DOWNLOAD/ngx_devel_kit-${NGX_DEVEL_KIT_VERSION}
 LUA_NGINX_MODULE_PATH=$PATH_DOWNLOAD/lua-nginx-module-${LUA_NGINX_MODULE_VERSION}
 
-# mkdir $PATH_DOWNLOAD
+mkdir $PATH_DOWNLOAD
 cd $PATH_DOWNLOAD
 
 # Download LUAJIT
 git clone https://github.com/openresty/luajit2.git
 cd luajit2/
-make & make install
 
-cd .. 
+make && make install
+
+cd $PATH_DOWNLOAD
 # Download nginx
     wget http://nginx.org/download/nginx-${nginx_ver}.tar.gz
 
@@ -43,6 +43,9 @@ wget https://github.com/openresty/lua-nginx-module/archive/v${LUA_NGINX_MODULE_V
 find . -type f -name '*.tar.gz' -exec tar -xzf {} \;
 
 ## Config
+cd /usr/local/include/luajit-2.1/
+LUAJIT_LIB=/usr/local/lib LUAJIT_INC=/usr/local/include/luajit-2.1
+
 cd $PATH_DOWNLOAD
 cd nginx-${nginx_ver}
 LUAJIT_LIB=/usr/local/lib LUAJIT_INC=/usr/local/include/luajit-2.1 \
@@ -60,25 +63,22 @@ LUAJIT_LIB=/usr/local/lib LUAJIT_INC=/usr/local/include/luajit-2.1 \
      --with-http_stub_status_module        \
      --with-http_ssl_module                \
      --with-pcre                           \
-	 --with-debug                           \
+	--with-debug   \
      --with-file-aio                       \
      --with-http_realip_module             \
      --without-http_scgi_module            \
      --without-http_uwsgi_module           \
      --without-http_fastcgi_module ${NGINX_DEBUG:+--debug} \
      --with-cc-opt=-O2 --with-ld-opt='-Wl,-rpath,/usr/local/lib' \
-     --add-dynamic-module=$NGX_DEVEL_KIT_PATH	\
-     --add-dynamic-module=$LUA_NGINX_MODULE_PATH
+     --add-dynamic-module=/opt/nginx-build/ngx_devel_kit-${NGX_DEVEL_KIT_VERSION}	\
+     --add-dynamic-module=/opt/nginx-build/lua-nginx-module-${LUA_NGINX_MODULE_VERSION}
 
 make && make modules && make install
 
 # Add user
 useradd -r -M -s /sbin/nologin -d /opt/nginx nginx
 
-cd /usr/local/include/luajit-2.1/
-LUAJIT_LIB=/usr/local/lib LUAJIT_INC=/usr/local/include/luajit-2.1
-
-# 
+# Add lua-resty-core and lua-resty-lrucache
 cd $PATH_DOWNLOAD
 git clone https://github.com/openresty/lua-resty-core.git
 cd lua-resty-core
@@ -116,13 +116,14 @@ WantedBy=multi-user.target
 # Create systemd configuration file
 echo "$nginx_service_content" | sudo tee "$systemd_service_file"
 
-# Restart systemd to update service information
-sudo systemctl daemon-reload
+# Add module
+sed -i '1i\load_module /opt/nginx/modules/ngx_http_lua_module.so;' /opt/nginx/nginx.conf
+sed -i '1i\load_module /opt/nginx/modules/ndk_http_module.so;' /opt/nginx/nginx.conf
+sed -i '30i\lua_package_path "/opt/nginx/lib/lua/?.lua;;/opt/nginx/lua-nginx-script/?.lua;;";' /opt/nginx/nginx.conf
 
-echo "Created systemd configuration file for Nginx service successfully."
-
+# Config services
+systemctl daemon-reload
 sudo systemctl start nginx
 sudo systemctl restart nginx
 sudo systemctl enable nginx
 sudo systemctl status nginx
-
