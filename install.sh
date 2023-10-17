@@ -52,7 +52,7 @@ LUAJIT_LIB=/usr/local/lib LUAJIT_INC=/usr/local/include/luajit-2.1 \
      ./configure \
      --user=nginx                          \
      --group=nginx                         \
-     --prefix=/etc/nginx                   \
+     --prefix=/opt/nginx                   \
      --sbin-path=/usr/sbin/nginx           \
      --conf-path=/etc/nginx/nginx.conf     \
      --pid-path=/var/run/nginx.pid         \
