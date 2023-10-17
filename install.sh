@@ -79,8 +79,9 @@ LUAJIT_LIB=/usr/local/lib LUAJIT_INC=/usr/local/include/luajit-2.1 \
 
 make && make modules && make install
 
-# Add user
+# Config nginx
 useradd -r -M -s /sbin/nologin -d /opt/nginx nginx
+chown -R nginx:nginx /opt/nginx
 
 # Add lua-resty-core and lua-resty-lrucache
 cd $PATH_DOWNLOAD
