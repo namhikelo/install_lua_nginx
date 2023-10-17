@@ -63,8 +63,8 @@ LUAJIT_LIB=/usr/local/lib LUAJIT_INC=/usr/local/include/luajit-2.1 \
      --with-http_stub_status_module        \
      --with-http_ssl_module                \
      --with-pcre-jit                           \
-	 --with-debug                           \
-	 --with-compat                           \
+     --with-debug                           \
+     --with-compat                           \
      --with-file-aio                       \
      --with-http_realip_module             \
      --without-http_scgi_module            \
@@ -73,6 +73,9 @@ LUAJIT_LIB=/usr/local/lib LUAJIT_INC=/usr/local/include/luajit-2.1 \
      --with-cc-opt=-O2 --with-ld-opt='-Wl,-rpath,/usr/local/lib' \
      --add-dynamic-module=/opt/nginx-build/ngx_devel_kit-${NGX_DEVEL_KIT_VERSION}	\
      --add-dynamic-module=/opt/nginx-build/lua-nginx-module-${LUA_NGINX_MODULE_VERSION}
+
+#     --add-dynamic-module=/opt/nginx-build/ngx_devel_kit-0.3.2	\
+#     --add-dynamic-module=/opt/nginx-build/lua-nginx-module-0.10.25
 
 make && make modules && make install
 
