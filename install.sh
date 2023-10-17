@@ -62,7 +62,9 @@ LUAJIT_LIB=/usr/local/lib LUAJIT_INC=/usr/local/include/luajit-2.1 \
      --with-http_gzip_static_module        \
      --with-http_stub_status_module        \
      --with-http_ssl_module                \
-     --with-pcre                           \
+     --with-pcre-jit                           \
+	 --with-debug                           \
+	 --with-compat                           \
      --with-file-aio                       \
      --with-http_realip_module             \
      --without-http_scgi_module            \
