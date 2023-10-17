@@ -48,7 +48,7 @@ LUAJIT_LIB=/usr/local/lib LUAJIT_INC=/usr/local/include/luajit-2.1
 
 cd $PATH_DOWNLOAD
 cd nginx-${nginx_ver}
-LUAJIT_LIB=/usr/local/lib LUAJIT_INC=/usr/local/include/luajit-2.0 \
+LUAJIT_LIB=/usr/local/lib LUAJIT_INC=/usr/local/include/luajit-2.1 \
      ./configure \
      --user=nginx                          \
      --group=nginx                         \
