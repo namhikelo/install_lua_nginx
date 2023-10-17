@@ -54,9 +54,9 @@ LUAJIT_LIB=/usr/local/lib LUAJIT_INC=/usr/local/include/luajit-2.1 \
      --group=nginx                         \
      --prefix=/opt/nginx                   \
      --sbin-path=/usr/sbin/nginx           \
-     --conf-path=/etc/nginx/nginx.conf     \
-     --pid-path=/var/run/nginx.pid         \
-     --lock-path=/var/run/nginx.lock       \
+     --conf-path=/opt/nginx/nginx.conf     \
+     --pid-path=/run/nginx.pid         \
+     --lock-path=/run/nginx.lock       \
      --error-log-path=/var/log/nginx/error.log \
      --http-log-path=/var/log/nginx/access.log \
      --with-http_gzip_static_module        \
