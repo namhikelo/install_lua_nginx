@@ -48,22 +48,21 @@ LUAJIT_LIB=/usr/local/lib LUAJIT_INC=/usr/local/include/luajit-2.1
 
 cd $PATH_DOWNLOAD
 cd nginx-${nginx_ver}
-LUAJIT_LIB=/usr/local/lib LUAJIT_INC=/usr/local/include/luajit-2.1 \
+LUAJIT_LIB=/usr/local/lib LUAJIT_INC=/usr/local/include/luajit-2.0 \
      ./configure \
      --user=nginx                          \
      --group=nginx                         \
-     --prefix=/opt/nginx                   \
+     --prefix=/etc/nginx                   \
      --sbin-path=/usr/sbin/nginx           \
-     --conf-path=/opt/nginx/nginx.conf     \
-     --pid-path=/run/nginx.pid         \
-     --lock-path=/run/nginx.lock       \
+     --conf-path=/etc/nginx/nginx.conf     \
+     --pid-path=/var/run/nginx.pid         \
+     --lock-path=/var/run/nginx.lock       \
      --error-log-path=/var/log/nginx/error.log \
      --http-log-path=/var/log/nginx/access.log \
      --with-http_gzip_static_module        \
      --with-http_stub_status_module        \
      --with-http_ssl_module                \
      --with-pcre                           \
-	--with-debug   \
      --with-file-aio                       \
      --with-http_realip_module             \
      --without-http_scgi_module            \
