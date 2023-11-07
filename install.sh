@@ -5,10 +5,12 @@ if [ "$EUID" -ne 0 ]; then
 fi
 
 # Update
-sudo apt update
+sudo apt-get update
 
 # Pakage requirement
 sudo apt install -y g++ build-essential make net-tools git curl wget openssl gcc libssl-dev libpcre3 libpcre3-dev zlib1g-dev
+sudo apt-get install lua5.1-dev
+luarocks install luafilesystem
 
 # Varible 
 nginx_ver='1.25.2'
