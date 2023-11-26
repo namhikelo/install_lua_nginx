@@ -8,7 +8,7 @@ fi
 sudo apt-get update
 
 # Pakage requirement
-sudo apt install -y g++ build-essential make net-tools git curl wget openssl gcc libssl-dev libpcre3 libpcre3-dev zlib1g-dev lua5.1-dev
+sudo apt-get install -y g++ build-essential make net-tools git curl wget openssl gcc libssl-dev libpcre3 libpcre3-dev zlib1g-dev lua5.1-dev luarocks
 luarocks install luafilesystem
 
 # Varible 
@@ -25,7 +25,6 @@ cd $PATH_DOWNLOAD
 # Download LUAJIT
 git clone https://github.com/openresty/luajit2.git
 cd luajit2/
-
 make && make install
 
 cd $PATH_DOWNLOAD
