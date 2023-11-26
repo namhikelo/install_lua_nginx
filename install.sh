@@ -5,9 +5,9 @@ if [ "$EUID" -ne 0 ]; then
 fi
 
 # Update
-sudo apt-get update
+sudo apt-get update && sudo apt-get upgrade
 
-# Pakage requirement
+# Package requirement
 sudo apt-get install -y g++ build-essential make net-tools git curl wget openssl gcc libssl-dev libpcre3 libpcre3-dev zlib1g-dev lua5.1-dev luarocks
 luarocks install luafilesystem
 
