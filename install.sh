@@ -114,7 +114,6 @@ KillMode=mixed
 [Install]
 WantedBy=multi-user.target
 "
-
 # Create systemd configuration file
 echo "$nginx_service_content" | sudo tee "$systemd_service_file"
 
