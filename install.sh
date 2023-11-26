@@ -74,9 +74,6 @@ LUAJIT_LIB=/usr/local/lib LUAJIT_INC=/usr/local/include/luajit-2.1 \
      --add-dynamic-module=/opt/nginx-build/ngx_devel_kit-${NGX_DEVEL_KIT_VERSION}	\
      --add-dynamic-module=/opt/nginx-build/lua-nginx-module-${LUA_NGINX_MODULE_VERSION}
 
-#     --add-dynamic-module=/opt/nginx-build/ngx_devel_kit-0.3.2	\
-#     --add-dynamic-module=/opt/nginx-build/lua-nginx-module-0.10.25
-
 make && make modules && make install
 
 # Config nginx
